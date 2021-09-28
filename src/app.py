@@ -24,7 +24,18 @@ def custom():
     
     data = items    
     return render_template('custom.html', data=data ,title=title)
+
+@app.route('/buscalibre')
+def buscalibre():
+    title = 'BuscaLibre'
+
+    url_template = 'https://www.buscalibre.com.ar/amazon?url=https%3A%2F%2Fwww.amazon.com%2Fdp%2F{}&t=tetraemosv4'
+
+    database = DataBase()
+    items = database.get_bl_items()
     
+    data = items    
+    return render_template('buscalibre.html', data=data ,title=title,url_template=url_template)    
 
 #app.route('/product/<id>')
 #ef product(id):

@@ -35,6 +35,17 @@ class DataBase:
         except Exception as e:
             raise
 
+    def get_bl_items(self):
+        sql = "SELECT * FROM amazon WHERE on_bl is TRUE ORDER BY id DESC"
+
+        try:
+            self.cursor.execute(sql);            
+            items = [list(item) for item in self.cursor.fetchall()]
+
+            return items
+        except Exception as e:
+            raise
+
     def get_custom_query(self):
         sql = 'SELECT * FROM tiendamia_menos_1 WHERE weight < 1 ORDER BY diff desc, TOTAL_TM ASC limit 20'        
 
