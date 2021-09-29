@@ -1,4 +1,5 @@
 import csv
+from database import DataBase
 from bs4 import BeautifulSoup
 from bs4.element import ResultSet
 from selenium import webdriver
@@ -32,47 +33,51 @@ def extract_record(item):
         price_parent = item.find('span','a-price')
         price = price_parent.find('span', 'a-offscreen').text
     except AttributeError:
-        return
+        print('Price-AttributeError: ', asin)
+        price = ''        
 
     # img
     try:
         img_parent = item.find('img','s-image')
         img = img_parent.get('src')
     except AttributeError:
-        return
+        print('Img-AttributeError: ', asin)
+        img = ''
 
     result = (description,asin,price,img,url)
 
     return result
 
 def main(search_term):
+    #search_term='board game'
+    # conexion a base
+    database = DataBase()
+
     # iniciar webdriver
     driver  = webdriver.Chrome()
 
     #cambio codificacion de caracteres
     (driver.page_source).encode('utf-8')
-    
-    records = []
-    url = get_url(search_term)
-    
-    for page in range(1,400):
-       driver.get(url.format(page))          
-       soup = BeautifulSoup(driver.page_source, 'html.parser')
-       results = soup.find_all('div',{'data-component-type': 's-search-result'})
 
-       for item in results:
-           record = extract_record(item)
-           if record:
-               records.append(record)
+    #records = []
+    url = get_url(search_term)
+
+    for page in range(1,400):
+        print('Page: ', page)
+        driver.get(url.format(page))          
+        soup = BeautifulSoup(driver.page_source, 'html.parser')
+        results = soup.find_all('div',{'data-component-type': 's-search-result'})
+
+        for item in results:
+            record = extract_record(item)
+            if record:
+                #records.append(record)
+                database.amazon_tmp_add(record)
+            else:
+                print('Not extract record: ',item)
 
     driver.close()
 
 
-    # guardar resultados
-    with open('result.csv','w', newline='', encoding='utf-8') as f:
-        writer = csv.writer(f,delimiter=',')
-        # writer.writerow(['Descripcion', 'ASIN', 'Precio', 'URL'])
-        writer.writerows(records)
-
-main('board games')
+main('board game')
 

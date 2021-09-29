@@ -4,48 +4,7 @@ from bs4.element import ResultSet
 from selenium import webdriver
 import pymysql
 import json
-
-class DataBase:
-    def __init__(self):
-        self.connection = pymysql.connect(
-            host='localhost',
-            user='root',
-            password='insertcoin',
-            db='scrap'
-        )
-    
-        self.cursor = self.connection.cursor()
-
-   
-    def get_items(self):        
-        sql = "SELECT id,asin_code FROM amazon WHERE on_bl is null ORDER BY id";
-        
-        
-        try:
-            self.cursor.execute(sql)
-            items = self.cursor.fetchall()
-            results = []
-            for item in items:
-                results.append(item)
-
-            return results
-
-        except Exception as e:
-            raise
-
-    def update_item(self, on_bl,price_bl, id):        
-        sql = "UPDATE amazon SET on_bl ={0}, price_bl = '{1}' WHERE id ={2}".format(on_bl,price_bl,id);        
-        try:
-            self.cursor.execute(sql)            
-            updatedRow = self.cursor.fetchall()            
-            self.connection.commit()
-            return updatedRow
-
-        except Exception as e:
-            raise
-
-    def close(self):
-        self.connection.close()
+from database import DataBase
 
 
 def get_url(asin):
@@ -98,7 +57,7 @@ def main():
     #cambio codificacion de caracteres
     (driver.page_source).encode('utf-8')
 
-    records = database.get_items()
+    records = database.amazon_get_items()
 
 
     for record in records:
@@ -113,9 +72,9 @@ def main():
         price_parent = soup.find('div','precio-transporte')
         if price_parent:
             price_bl = price_parent.find('span', 'price').text
-            database.update_item(True,price_bl,id)
+            database.amazon_update_item(True,price_bl,id)
         else:
-            database.update_item(False,'',id)
+            database.amazon_update_item(False,'',id)
 
     database.close()
     driver.close()
