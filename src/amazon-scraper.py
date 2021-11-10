@@ -71,8 +71,8 @@ def main(search_term):
         for item in results:
             record = extract_record(item)
             if record:
-                #records.append(record)
-                database.amazon_tmp_add(record)
+                #records.append(record)                
+                database.amazon_insert_item(record)
             else:
                 print('Not extract record: ',item)
 

@@ -1,18 +1,26 @@
-import pymysql
+import sqlite3
 import re
 
 class DataBase:
     def __init__(self):
-        self.connection = pymysql.connect(
-            host='localhost',
-            user='root',
-            password='toor',
-            db='scrap',
-            charset='utf8'
-        )
-    
-        self.cursor = self.connection.cursor()
+        self.connection = sqlite3.connect('data.db')    
+        self.cursor = self.connection.cursor()      
+        self.create_database()
 
+    def create_database(self):
+        sql = '''CREATE TABLE IF NOT EXISTS "amazon" (
+                "id" INTEGER NOT NULL,
+                "description" TEXT NULL DEFAULT '',
+                "asin_code" VARCHAR(20) NULL DEFAULT '',
+                "price" VARCHAR(25) NULL DEFAULT '',
+                "img" TEXT NULL DEFAULT NULL,
+                "url" TEXT NULL DEFAULT NULL,
+                "on_bl" TINYINT NULL,
+                "price_bl" VARCHAR(25) NULL DEFAULT NULL,
+                PRIMARY KEY ("id")
+                )'''
+        self.cursor.execute(sql)
+        self.connection.commit()
    
     def insert_item(self, item):
         name = self.connection.escape_string(item[0])
@@ -77,6 +85,18 @@ class DataBase:
         except Exception as e:
             raise    
     
+    def amazon_insert_item(self, item):
+        name = item[0]
+        sql = "INSERT INTO amazon (description, asin_code,price, img, url ) values (\"{0}\",'{1}','{2}','{3}','{4}')"\
+            .format(name,item[1],item[2],item[3],item[4])
+        
+        try:
+            self.cursor.execute(sql)
+            self.connection.commit()
+        except Exception as e:
+            raise    
+    
+
     def amazon_get_items(self):        
         sql = "SELECT id,asin_code FROM amazon WHERE on_bl is null ORDER BY id DESC"
         
@@ -104,6 +124,16 @@ class DataBase:
         except Exception as e:
             raise
 
+    def walmart_insert_item(self, item):
+        description = self.connection.escape_string(item[0])
+        sql = "INSERT INTO walmart (description, asin_code,price, img, url) values ('{0}','{1}','{2}','{3}','{4}')"\
+            .format(description,item[1],item[2],item[3],item[4])
+        
+        try:
+            self.cursor.execute(sql)
+            self.connection.commit()
+        except Exception as e:
+            raise    
 
     def close(self):
         self.connection.close()
