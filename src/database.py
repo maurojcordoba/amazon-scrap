@@ -58,11 +58,11 @@ class DataBase:
 
     def get_tm_items(self):
         # sql = "SELECT * FROM amazon WHERE on_bl is 1 ORDER BY cast(replace(replace(price_bl,'$ ',''),'.','') AS INT) DESC;"
-        sql = "SELECT * FROM amazon WHERE on_tm is 1 ORDER BY  weigth asc, modified desc;"
-        sql = """SELECT * FROM amazon WHERE on_tm is 1
-        AND (cast(price_tm AS real) >7.500 and cast(price_tm AS real) < 20.000)
-        and weigth < 1
-        ORDER BY  cast(weigth AS real) asc, cast(price_tm AS real) desc;"""
+        sql = "SELECT * FROM amazon WHERE on_tm is 1 ORDER BY weigth desc, cast(price_tm AS real) desc;"
+        # sql = """SELECT * FROM amazon WHERE on_tm is 1
+        # AND (cast(price_tm AS real) >7.500 and cast(price_tm AS real) < 20.000)
+        # and weigth < 1
+        # ORDER BY  cast(weigth AS real) asc, cast(price_tm AS real) desc;"""
         
         try:
             self.cursor.execute(sql);            
@@ -127,7 +127,10 @@ class DataBase:
             raise
 
     def amazon_get_items_tm(self):        
-        sql = "SELECT id,asin_code FROM amazon WHERE on_tm is null"
+        # sql = "SELECT id,asin_code FROM amazon WHERE on_tm is null"
+        sql = """SELECT id,asin_code FROM amazon 
+                WHERE (on_tm is 1 OR on_bl = 1) 
+                AND price_tm = '' AND STOCK_TM != 'Out of Stock'"""
         
         try:
             self.cursor.execute(sql)

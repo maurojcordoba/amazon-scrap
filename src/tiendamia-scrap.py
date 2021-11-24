@@ -73,12 +73,11 @@ def main():
         
         # guardar resultados
         if result:                       
-            p = re.search('(\d+\.\d*)', result[0])
+            p = re.search('(\d+\.?\d*)', result[0])
             if p:
                 price_tm = p.group(1)
             else:
                 price_tm = '' 
-            
             m = re.search('(\d+,\d*)', result[2])
             if m:
                 weight_tm = m.group(1)
