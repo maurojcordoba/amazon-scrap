@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "juegostmybl",
+  "private_key_id": "465eb052fdb87e2e52fb83a349b52617f67dde35",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDW5snztE9rHO/0\n8P/pRi7JzwXNVokpJKODdCCfAp/ZPHq1yPgYodZBnPkExibLuYWDCljhLMCg7+yi\nlBjkNUv6JXQKRBZ9KDe+6cY1VZlBONw+zFfEbAhyZkH5BhFNgBQitEXIIzSfZn/E\n83455MVIZFppdCCI+DTmoOkgeun5kHf3TIAElvjAJ+yWIgeUSiLjjz0ziPPun8K9\n+rNdvdzMG+WGi6WqZJg5QhcO3twJOYsFqWq5v9Ng7Jz5UGKSv6UsxQwjFSvNOQGc\nJccX9UJJzs8VnVs6iuMi+nFO/ztngFV4P2pki8JrB1hNOgEBb+Kiyrx1G+xDcsLJ\nnZg6L4qtAgMBAAECggEANSfX6zZ98HYzamhUPIy2FQfmnQBbI/iik2jdisdY56B8\nj8t6hok9WHRt6f7jaL/mZN/h1Sy/Ju/BngM41vXR6blq5wEpeOLCSzBC7T1Tj5zz\naXsc+IJqYnWluuWD0SItmNnzaso+gXEWiI5b+hD6tWnRLUViqM6QMz24/GY6ypY7\n39OkDjcYSD3yz4R0MhvkLFUh5SDoMcnbkwauJHCtNFwzqgtDa5Pp92LlUvvSUc6k\n5y2aeNW+DvXgHF42Dypkapl47suOKZGxMXsoJapCPwpWY4r0B/UpmlnIBGqR2Ilk\n0mKSvfliVnQ/zWoQ31on4FceNqvKoHj7K6sIGn97EQKBgQDzsFRbc9NKk6Cexemw\nOzmGKL8CkriVck4S9LyBEdjNJL2+q+vBPL0PDu2TS1/ZKUcBZxsJUbng+RD8yFdV\nEZkvNdV2Uh2VEkTCyglYMmqFnNnBynEZYe12lUQ26Z46mdAMQECqR3qfylgarQg2\nJKjqYpp8yaasDlFImObYltesKQKBgQDhwiYDY2YYe2AhZ/ir5ADrDkE2ATyOe6et\nc2BmWIP/8qSXt5s//H9wSbATIqZiZmUphL5g7Pd9pIJPyAM5Xo7gtFV56Dy4T31/\n27scjQUi2L1ou4mAVFwdQrNXGGPxumUFv/nOMxBDAx/Bn2AZP5rFhKvsu3aeulAX\n/eg0oF965QKBgGQEEPtf9G59XMUNkbYk+J0ZiBv0QBIGUgjxrZSD0KmR1Na3FRHA\nbhAKHnP/0Zz9lgj7Wlte0Z2GW/SD/WQKzwZTYAMp/L48O0B/T4qFVrb0A2PIRNcY\nHDA5Xz/ybmC61GrSzDeXErsWf0ajkeU28qUQRzvEP8YKMk5LgyON9YLRAoGAIYY3\nJuGn05Len5dU8hGVoVIolOByIaZzK+qqMgiK8YMStgTp5QKV2hLXNsA6fPo/o362\n1qXZyqqXP0mwUOCdzvh4iPXXrnb/Z/E1Q/QdAyO0XM0cihX858tz3kcc8FSBk+0C\nJ4CltY3NNW95UcaEMTiWXz0nTELWifmGdeoqw5ECgYAWyjnPu8rxrQ1e9DHA87vv\nVFEPIzj5SkNL3zsImBVflZUyuDOv2CIDgCmcLPaDDyaivCGBvdCKMlRYi+gx7hsr\nIXdcOjHlA3gKSTV5t0+08yZ2BiTVK8I/aJiMSbUCLPQ+SVtfPc7vE6rZOyrrFq7w\nReRqbLvdq86P8jbFThjh/A==\n-----END PRIVATE KEY-----\n",
+  "client_email": "juegostmybl@juegostmybl.iam.gserviceaccount.com",
+  "client_id": "113070373856689344575",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/juegostmybl%40juegostmybl.iam.gserviceaccount.com"
+}

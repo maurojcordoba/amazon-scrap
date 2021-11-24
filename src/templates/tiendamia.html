@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block title %} {{ data.title }} {% endblock %}
+
+
+{% block content %}
+
+<div>
+  <div class="row">
+    <h3>Registros encontrados {{data|length}} </h3>
+  </div>
+</div>
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-image">
+        <thead>
+          <tr>
+
+            <th scope="col">Image</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Peso</th>
+            <th scope="col">Stock</th>
+            <th scope="col">US$ Amazon</th>
+            <th scope="col">$ TiendaMia</th>
+            <th scope="col">$ Buscalibre</th>
+            <th scope="col">Links</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in data %}
+          <tr>            
+            <td class="col-md-2">
+              <img src="{{ item[4] }}" class="img-fluid img-thumbnail" alt="Imagen">
+            </td>
+            <td class="col-md-2">{{ item[1][0:60] }}</td>
+            <td>{{ item[11] }}</td>
+            <td>{{ item[12] }}</td>
+            <td>{{ item[3] }}</td>
+            <td>{{ item[10] }}</td>            
+            <td>{{ item[7] }}</td>
+            <td> <a href="{{  url_template.format(item[2]) }}" class="btn btn-link" target="_blank"
+                role="button">TiendaMia</a> 
+                <a href="{{  'https://www.google.com/search?q=bgg+' + item[1].replace(' ','+') }}" class="btn btn-link" target="_blank"
+                role="button">Google+Bgg</a> 
+              </td>             
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
