@@ -49,6 +49,21 @@ def tiendamia():
     data = items 
     return render_template('tiendamia.html', data=data ,title=title,url_template=url_template) 
 
+@app.route('/favorites/')
+def favorites():    
+    id = request.args.get('id')
+    database = DataBase()
+    result = database.fav(id)        
+    return json.dumps({ "result": result})
+
+@app.route('/favorites/remove')
+def favorites_remove():    
+    id = request.args.get('id')
+    database = DataBase()
+    database.delete_fav(id)
+    
+    return 'Ok'
+
 
 @app.route('/about')
 def about():

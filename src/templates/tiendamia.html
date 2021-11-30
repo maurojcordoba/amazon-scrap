@@ -36,7 +36,10 @@
             <td class="col-md-2">
               <img src="{{ item[4] }}" class="img-fluid img-thumbnail" alt="Imagen">
             </td>
-            <td class="col-md-2">{{ item[1][0:60] }}</td>
+            <td class="col-md-2">{{ item[1][0:60] }}              
+              <br>
+              <a href="#" class="fav {% if item[14] == 1 %} active {% endif %}" id="{{ item[0] }}" title="[+] Add as favorite" data-fav="1"></a>
+            </td>
             <td>{{ item[11] }}</td>
             <td>{{ item[12] }}</td>
             <td>{{ item[3] }}</td>
@@ -54,6 +57,34 @@
     </div>
   </div>
 </div>
+<script>
+  function addFav(element){
+    itemID = element.attr("id");
+    isfav = element.attr("data-fav")
+    
+    $.ajax({
+      url: "/favorites/",
+      data: {"id": itemID},
+      success: function(data){
+        datajson = JSON.parse(data)
+        
+          if (datajson.result == 1){
+              element.addClass('active');
+          }else{
+            element.removeClass('active');
+          }
+          
+      }
+    });
+}
 
+
+//this will make the link listen to function addFav (you might know this already)
+$('a.fav').on('click', function(event){
+    element = $(this);    
+    addFav(element);
+    event.preventDefault();
+  });
+</script>
 
 {% endblock %}

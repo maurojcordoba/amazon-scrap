@@ -33,6 +33,40 @@ class DataBase:
         except Exception as e:
             raise
     
+    def fav(self,id):
+        
+        try:
+            sql = 'SELECT COUNT(*) FROM fav WHERE amazon_id = {}'.format(id)
+            self.cursor.execute(sql)
+            cur_result = self.cursor.fetchone()
+            if(cur_result[0] != 0):
+                sql = 'DELETE FROM fav WHERE amazon_id = {}'.format(id)
+                self.cursor.execute(sql)
+                self.connection.commit()
+                return 0
+            else:    
+                sql = 'INSERT INTO fav (amazon_id) VALUES ({})'.format(id)
+                self.cursor.execute(sql)
+                self.connection.commit()
+                return 1                
+        except Exception as e:
+            raise  
+
+    def insert_fav(self, id):        
+        sql = 'INSERT INTO fav (amazon_id) VALUES ({})'.format(id)
+        try:
+            self.cursor.execute(sql)
+            self.connection.commit()
+        except Exception as e:
+            raise  
+
+    def delete_fav(self, id):        
+        try:
+            self.cursor.execute('DELETE fav WHERE amazon_id = ?', (id))
+            self.connection.commit()
+        except Exception as e:
+            raise  
+    
     def get_all_items(self):
         sql = 'SELECT * FROM amazon LIMIT 10'
 
@@ -58,11 +92,12 @@ class DataBase:
 
     def get_tm_items(self):
         # sql = "SELECT * FROM amazon WHERE on_bl is 1 ORDER BY cast(replace(replace(price_bl,'$ ',''),'.','') AS INT) DESC;"
-        sql = "SELECT * FROM amazon WHERE on_tm is 1 ORDER BY weigth desc, cast(price_tm AS real) desc;"
-        # sql = """SELECT * FROM amazon WHERE on_tm is 1
-        # AND (cast(price_tm AS real) >7.500 and cast(price_tm AS real) < 20.000)
-        # and weigth < 1
-        # ORDER BY  cast(weigth AS real) asc, cast(price_tm AS real) desc;"""
+        sql = "SELECT * FROM amazon WHERE on_tm is 1 and stock_tm != 'Out of Stock' ORDER BY weigth asc LIMIT 5;"
+        sql = """SELECT a.*, CASE WHEN b.amazon_id IS NULL THEN 0 ELSE 1 END as isfav
+                FROM amazon a LEFT JOIN fav b
+                on a.id = b.amazon_id
+                WHERE a.on_tm is 1 and a.stock_tm != 'Out of Stock' 
+                ORDER BY weigth asc;"""
         
         try:
             self.cursor.execute(sql);            
