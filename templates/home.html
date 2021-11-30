@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% block title %} {{ data.title }} {% endblock %}
+
+
+{% block content %}
+
+
+<div>
+  <div class="row">
+  {% for item in data %}
+  <div class="col-sm-3 col-md-3">
+    <div class="img-thumbnail">
+      <img src="{{ item[4] }}" alt="..." class="img-fluid img-responsive rounded product-image">
+      <div class="caption">
+        <p>{{ item[1] }}</p>
+        
+        <p>
+          <a href="{{item[7]}}" class="btn btn-primary" role="button">TiendaMia</a>          
+        </p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  </div>
+</div>
+
+
+<div class="d-flex justify-content-center row">
+  <div class="col-md-12">
+    {% for item in data %}
+      <div class="row p-2 bg-white border rounded mt-2">
+          <div class="col-md-2 mt-1">
+            <img class="img-fluid img-responsive rounded product-image" src="{{ item[4] }}">
+          </div>
+          <div class="col-md-7 mt-1">
+              <h6>{{item[1]}}</h6>
+              
+              <div class="d-flex flex-row">                  
+                <span> Id: {{ item[0] }} </span> &nbsp;               
+                <span class="badge bg-info text-dark">{{ item[5] }}</span>                
+              </div>                       
+          </div>
+          <div class="align-items-center align-content-center col-md-3 border-left mt-1">
+              <div class="d-flex flex-row align-items-center">
+                  <h4 class="mr-1">{{ item[8] }}</h4>
+              </div>
+              <div class="d-flex flex-row align-items-center">
+                <span class="strike-text">Antes: {{ item[3] }}</span>
+            </div>
+              
+              <div class="d-flex flex-column mt-4">
+                            
+               <a class="btn btn-primary btn-sm mt-1" href="" role="button" target="_blank" rel="noopener noreferrer">Ver en Bercomat</a>                    
+            </div>
+          </div>
+      </div>  
+      {% endfor %}       
+  </div>
+</div>
+
+
+{% endblock %}
+

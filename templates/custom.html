@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+
+{% block title %} {{ data.title }} {% endblock %}
+
+
+{% block content %}
+
+
+<div>
+  
+  <div class="row">
+  {% for item in data %}
+
+
+  <div class="col-sm-3 col-md-3">
+    <div class="img-thumbnail">
+
+      <!-- image -->
+      <div id="carouselExampleIndicators{{item[12]}}" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          {% for img_src in item[11] %}  
+            <li data-target="#carouselExampleIndicators{{item[12]}}" data-slide-to="{{ loop.index - 1 }}"  {% if loop.first %} class="active" {% endif %}></li>                
+          {% endfor %}                    
+        </ol>
+        <div class="carousel-inner">
+          {% for img_src in item[11] %}  
+          <div class="carousel-item  {% if loop.first %} active {% endif %}">
+            <img class="d-block w-100" src="{{img_src}}" alt="...">
+          </div>          
+          {% endfor %}
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators{{item[12]}}" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only"></span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators{{item[12]}}" role="button" data-slide="next">
+          <span class="carousel-control-next-icon " aria-hidden="true"></span>
+          <span class="sr-only"></span>
+        </a>
+      </div>
+
+
+
+      <div class="caption">
+        <p>{{ item[0] }}</p>
+        
+        <span class="badge bg-info text-dark">{{ item[1] }}</span>  
+        <ul>
+         <li>Peso: {{ item[5] }} </li>
+         <li>Amazon: {{ item[3] }} </li>
+         <li>Amazon ARS: {{ "${:,.2f}".format(item[6]) }}</li>
+         <li>TM: {{ item[4] }} </li>
+         <li>Dif TM: {{ item[9] }}</li>         
+        </ul>
+        
+        <h4>{{ "${:,.2f}".format(item[8]) }}</h4>
+
+        <br>
+        <p>
+          <a href="{{item[10]}}" class="btn btn-primary" role="button" target="_blank" rel="noopener noreferrer">TiendaMia</a>       
+          
+        </p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  </div>
+</div>
+
+<script>
+  $('.carousel').carousel('pause')
+</script>
+
+
+{% endblock %}
+

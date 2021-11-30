@@ -1,0 +1,121 @@
+{% extends "layout.html"%}
+
+{% block title %} {{ data.title }} {% endblock %}
+
+{% block content %}
+
+
+
+<!-- JS CHARTJS.ORG-->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+
+{% set oferta = data.producto %}
+
+
+<div class="d-flex justify-content-center row">
+    <div class="col-md-12">      
+        <div class="row p-2 bg-white border rounded mt-2">
+            <div class="col-md-2 mt-1">
+              <img class="img-fluid img-responsive rounded product-image" src="{{ oferta.thunbnail }}">
+            </div>
+            <div class="col-md-7 mt-1">
+                <h5>{{oferta.name}}</h5>
+                
+                <div class="d-flex flex-row">                  
+                  <span> Id: {{ oferta.id }} </span> &nbsp;               
+                  <span class="badge bg-info text-dark">{{ oferta.stock }}</span>
+                  
+                </div>
+                <div class="mt-1 mb-1 spec-1">                
+                  {{oferta.list}}
+                </div>
+                
+                <div class="mt-1 mb-1 spec-1">
+                  {{oferta.category}}
+                </div>              
+            </div>
+            <div class="align-items-center align-content-center col-md-3 border-left mt-1">
+                <div class="d-flex flex-row align-items-center">
+                    <h4 class="mr-1">{{ "${:,.2f}".format(oferta.price) }}</h4>                  
+                </div>
+                
+                
+                <div class="d-flex flex-column mt-4">
+                  
+                  
+                              
+                 <a class="btn btn-primary btn-sm mt-1" href="{{ data.url_base + oferta.link }}" role="button" target="_blank" rel="noopener noreferrer">Ver en Bercomat</a>                    
+              </div>
+            </div>
+        </div>      
+    </div>
+  </div>
+  
+<canvas id="myChart" class="rounded "></canvas>
+
+
+<script>
+
+const labels = {{ data.labels | tojson }};
+
+  const data = {
+    labels: labels,
+    datasets: [{
+      label: 'Precios a {{ data.cant_dias }} días ',
+      backgroundColor: 'rgba(54, 162, 235, 0.2)',
+      borderColor:  'rgba(54, 162, 235, 1)',
+      data: {{ data.data_chart | tojson }}
+    }]
+  };
+
+var ctx = document.getElementById('myChart');
+
+ var myChart = new Chart(
+    document.getElementById('myChart'),
+    {
+        type: 'line',
+        data: data
+    }
+  );
+
+/*
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+*/
+</script>
+ 
+
+
+{% endblock %}
