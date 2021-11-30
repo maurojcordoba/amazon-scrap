@@ -69,3 +69,15 @@ canvas {
   font-size: 55px;
   color: black;
 }
+
+a.fav{
+    background: url('../images/addFavorit.png') no-repeat;
+    display: block;
+    width: 48px;
+    height: 48px;
+   
+}
+   
+a.fav.active{
+    background: url('../images/addFavorit_hover.png') no-repeat;
+}

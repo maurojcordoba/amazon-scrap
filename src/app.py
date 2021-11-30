@@ -34,8 +34,35 @@ def buscalibre():
     database = DataBase()
     items = database.get_bl_items()
     
-    data = items    
+    data = items 
     return render_template('buscalibre.html', data=data ,title=title,url_template=url_template) 
+
+@app.route('/tiendamia')
+def tiendamia():
+    title = 'TiendaMia'
+    
+    url_template = 'https://tiendamia.com/ar/producto?amz={}'
+        
+    database = DataBase()
+    items = database.get_tm_items()
+    
+    data = items 
+    return render_template('tiendamia.html', data=data ,title=title,url_template=url_template) 
+
+@app.route('/favorites/')
+def favorites():    
+    id = request.args.get('id')
+    database = DataBase()
+    result = database.fav(id)        
+    return json.dumps({ "result": result})
+
+@app.route('/favorites/remove')
+def favorites_remove():    
+    id = request.args.get('id')
+    database = DataBase()
+    database.delete_fav(id)
+    
+    return 'Ok'
 
 
 @app.route('/about')
@@ -56,4 +83,4 @@ if __name__ == '__main__':
 
     app.register_error_handler(404,pagina_no_encontrada)
 
-    app.run(debug=True, port=5000)
+    app.run(host='0.0.0.0', debug=True, port=5000)

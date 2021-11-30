@@ -2,7 +2,6 @@ from csv import reader
 from bs4 import BeautifulSoup
 from bs4.element import ResultSet
 from selenium import webdriver
-import pymysql
 import json
 from database import DataBase
 
@@ -47,36 +46,40 @@ def get_item(soup,url,price_amz,img,asin):
 
     return result
 
-def main():
+def main():    
     # conexion a base
     database = DataBase()
 
-    # iniciar webdriver
-    driver  = webdriver.Chrome()
+    records = database.amazon_get_items()    
+    if(len(records) != 0):
 
-    #cambio codificacion de caracteres
-    (driver.page_source).encode('utf-8')
-
-    records = database.amazon_get_items()
-
-
-    for record in records:
-        id = record[0]
-        asin = record[1]
-
-        url = get_url(asin)
+        # iniciar webdriver
+        driver  = webdriver.Chrome()
         
-        driver.get(url)        
+        #cambio codificacion de caracteres
+        (driver.page_source).encode('utf-8')
+    
+    
+        for record in records:        
+            id = record[0]
+            asin = record[1]
 
-        soup = BeautifulSoup(driver.page_source, 'html.parser')
-        price_parent = soup.find('div','precio-transporte')
-        if price_parent:
-            price_bl = price_parent.find('span', 'price').text
-            database.amazon_update_item(True,price_bl,id)
-        else:
-            database.amazon_update_item(False,'',id)
+            url = get_url(asin)
+            
+            driver.get(url)        
 
-    database.close()
-    driver.close()
+            soup = BeautifulSoup(driver.page_source, 'html.parser')
+            price_parent = soup.find('div','precio-transporte')
+            if price_parent:
+                price_bl = price_parent.find('span', 'price').text
+                database.amazon_update_item(True,price_bl,id)
+            else:
+                database.amazon_update_item(False,'',id)
+        
+        database.close()
+        driver.close() 
+    else:
+        print("NO SE ENCONTRARON PRODUCTOS PARA VERIFICAR")
+
 
 main()
