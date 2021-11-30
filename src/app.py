@@ -7,13 +7,15 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    title = 'Home'
-
-    database = DataBase()
-    items = database.get_all_items()
+    title = 'TiendaMia'
     
-    data = items    
-    return render_template('home.html', data=data ,title=title)
+    url_template = 'https://tiendamia.com/ar/producto?amz={}'
+        
+    database = DataBase()
+    items = database.get_tm_items()
+    
+    data = items 
+    return render_template('tiendamia.html', data=data ,title=title,url_template=url_template) 
     
 @app.route('/custom')
 def custom():
